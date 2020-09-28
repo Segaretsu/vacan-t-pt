@@ -43,6 +43,13 @@ export const UserForm = () => {
             }, (error) => {
                 addToast('oh no :(, no eres tú somos nosotros, algo a ido mal', { appearance: 'error' });
             })
+        } else if (operacion === 'delete') {
+            Services.deleteUser(usuario, ( {data} ) => {
+                console.log(data);
+                addToast('¡Usuario eliminado con exito!', { appearance: 'info' });
+            }, (error) => {
+                addToast('oh no :(, no eres tú somos nosotros, algo a ido mal', { appearance: 'error' });
+            });
         }
     }
 
@@ -66,11 +73,11 @@ export const UserForm = () => {
                     {...formik.getFieldProps('name')}
                     children={formik.touched.name && formik.errors.name ? (<span className="helper-text red-text">{formik.errors.name}</span>) : null}
                 />
-                <TextInput label='Correo:' email name="email" id='email' s={12} m={7} l={7}
+                <TextInput label='Correo:' email name="email" id='email' s={12} m={6} l={6}
                     {...formik.getFieldProps('email')}
                     children={formik.touched.email && formik.errors.email ? (<span className="helper-text red-text">{formik.errors.email}</span>) : null}
                 />
-                <TextInput label='Teléfono:' name="phone" id='phone' s={12} m={7} l={7}
+                <TextInput label='Teléfono:' name="phone" id='phone' s={12} m={6} l={6}
                     {...formik.getFieldProps('phone')}
                     children={formik.touched.phone && formik.errors.phone ? (<span className="helper-text red-text">{formik.errors.phone}</span>) : null}
                 />
@@ -84,7 +91,7 @@ export const UserForm = () => {
                         {...formik.getFieldProps('operacion')}
                     />
                 </Col>
-                <Button type='submit' className='col s12' disabled={!formik.isValid} >
+                <Button type='submit' className='col s6' disabled={!formik.isValid} >
                     Enviar
                 </Button>
             </Row>

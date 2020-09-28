@@ -13,7 +13,7 @@ export const Services = {
             .catch(error);
     },
     deleteUser: (userDelete, success, error) => {
-        axios.put(API_ENDPOINT + 'users/', userDelete)
+        axios.delete(API_ENDPOINT + 'users/', userDelete)
             .then(success)
             .catch(error);
     },

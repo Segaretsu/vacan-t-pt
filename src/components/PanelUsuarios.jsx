@@ -1,13 +1,12 @@
 import React from 'react';
-import { Col, Row, Card, Icon, CardTitle } from 'react-materialize';
+import { Col, Row, Card, Icon, CardTitle, Collapsible, CollapsibleItem } from 'react-materialize';
 import { Services } from '../services/users.service';
 
 export function PanelUsuarios(props) {
     function getUsuario() {
         Services.getUsers(({ data }) => {
-            if (localStorage.getItem("usersVacanT")) {
-                localStorage.setItem("usersVacanT", JSON.stringify(data));
-            }
+            localStorage.setItem("usersVacanT", JSON.stringify(data));
+            users = data;
         }, (error) => {
 
         });
@@ -19,29 +18,30 @@ export function PanelUsuarios(props) {
 
     return (
         <Row>
-            {/* {users.map((user) => {
+            {users.map((user) => {
                 const { id, name, phone, address } = user;
                 return (
-                    <Col s={6} m={4}>
-                        <Card
-                            closeIcon={<Icon>close</Icon>}
-                            header={<CardTitle reveal waves="light" />}
-                            reveal={<Row><p>Dirección:</p>
-                                <ul>
-                                <li>Barrio: {address.street}</li>
-                                <li>Apartamento: {address.suite}</li>
-                                </ul>
-                            </Row>}
-                            revealIcon={<Icon>more_vert</Icon>}
-                            title={`# ${id}: ${name}`}
+
+                    <Collapsible
+                        accordion
+                        popout
+                    >
+                        <CollapsibleItem
+                            expanded={false}
+                            header={`# ${id}: ${name}`}
+                            icon={<Icon>account_circle</Icon>}
+                            node="div"
                         >
-                            <p>
-                                Teléfono: {phone}
-                            </p>
-                        </Card>
-                    </Col>
+                            <Row><p><Icon>place</Icon>Dirección:</p>
+                                <ul>
+                                    <li>Barrio: {address.street}</li>
+                                    <li>Apartamento: {address.suite}</li>
+                                </ul>
+                            </Row>
+                        </CollapsibleItem>
+                    </Collapsible>
                 );
-            })} */}
+            })}
         </Row>
     );
 }
